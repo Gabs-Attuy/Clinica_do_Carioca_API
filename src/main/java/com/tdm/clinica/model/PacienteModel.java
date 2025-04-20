@@ -29,4 +29,28 @@ public class PacienteModel {
     @OneToOne
     @JoinColumn(name = "credencial_id")
     private CredencialModel credencialModel;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public Date getDataNascimento() {
+        return DataNascimento;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public CredencialModel getCredencialModel() {
+        return credencialModel;
+    }
 }

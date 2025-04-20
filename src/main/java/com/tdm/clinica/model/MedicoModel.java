@@ -27,4 +27,28 @@ public class MedicoModel {
     @OneToOne
     @JoinColumn(name = "credencial_id")
     private CredencialModel credencialModel;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCrm() {
+        return crm;
+    }
+
+    public String getEspecialidade() {
+        return especialidade;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public CredencialModel getCredencialModel() {
+        return credencialModel;
+    }
 }
