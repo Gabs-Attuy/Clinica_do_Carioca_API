@@ -29,15 +29,15 @@ public class ConsultaModel {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "paciente_id")
-    private PacienteModel pacienteModel;
+    private PacienteModel paciente;
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "medico_id")
-    private MedicoModel medicoModel;
+    private MedicoModel medico;
     @JsonIgnore
     @OneToOne
     @JoinColumn(name = "status_id")
-    private StatusConsultaModel statusConsultaModel;
+    private StatusConsultaModel statusConsulta;
 
     public ConsultaModel() {
     }
@@ -48,17 +48,17 @@ public class ConsultaModel {
         this.observacaoPaciente = observacaoPaciente;
         DataConsulta = dataConsulta;
         this.modalidade = modalidade;
-        this.pacienteModel = pacienteModel;
-        this.medicoModel = medicoModel;
-        this.statusConsultaModel = statusConsultaModel;
+        this.paciente = pacienteModel;
+        this.medico = medicoModel;
+        this.statusConsulta = statusConsultaModel;
     }
 
     public ConsultaModel(ConsultaDTO dto) {
         this.modalidade = dto.getModalidade();
         this.unidade = dto.getUnidade();
-        this.medicoModel = dto.getMedicoId();
+        this.medico = dto.getMedicoId();
         this.DataConsulta = dto.getDataConsulta();
-        this.pacienteModel = dto.getPacienteId();
+        this.paciente = dto.getPacienteId();
         this.observacaoPaciente = dto.getObservacoes();
     }
 
@@ -83,15 +83,15 @@ public class ConsultaModel {
     }
 
     public PacienteModel getPacienteModel() {
-        return pacienteModel;
+        return paciente;
     }
 
     public MedicoModel getMedicoModel() {
-        return medicoModel;
+        return medico;
     }
 
     public StatusConsultaModel getStatusConsultaModel() {
-        return statusConsultaModel;
+        return statusConsulta;
     }
 
     public void setUnidade(String unidade) {
@@ -111,14 +111,14 @@ public class ConsultaModel {
     }
 
     public void setPacienteModel(PacienteModel pacienteModel) {
-        this.pacienteModel = pacienteModel;
+        this.paciente = pacienteModel;
     }
 
     public void setMedicoModel(MedicoModel medicoModel) {
-        this.medicoModel = medicoModel;
+        this.medico = medicoModel;
     }
 
     public void setStatusConsultaModel(StatusConsultaModel statusConsultaModel) {
-        this.statusConsultaModel = statusConsultaModel;
+        this.statusConsulta = statusConsultaModel;
     }
 }

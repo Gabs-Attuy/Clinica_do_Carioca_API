@@ -19,4 +19,12 @@ public class ConsultaController {
     public ResponseEntity<ConsultaResponseDTO> agendarConsulta(@RequestBody ConsultaDTO dto) {
         return consultaService.agendarConsulta(dto);
     }
+
+    @GetMapping("/historicoPaciente")
+    public ResponseEntity<?> listarHistoricoConsultasPaciente(
+            @RequestParam("pacienteId") Long pacienteId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return consultaService.listarHistoricoConsultasPaciente(pacienteId, page, size);
+    }
 }
