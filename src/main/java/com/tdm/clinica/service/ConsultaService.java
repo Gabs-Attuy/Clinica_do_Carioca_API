@@ -73,7 +73,7 @@ public class ConsultaService {
         if (pacienteModel == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponseDTO("Paciente não encontrado no sistema!"));
         }
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "dataConsulta"));
         Page<ConsultaModel> consultaPage = consultaRepository.findAllByPaciente(pageable, pacienteModel);
         if (consultaPage.getContent().isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponseDTO("Não foram encontradas consultas para esse paciente!"));

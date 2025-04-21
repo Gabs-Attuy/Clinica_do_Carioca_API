@@ -24,7 +24,7 @@ public class ConsultaModel {
     private String unidade;
     @Column(columnDefinition = "TEXT")
     private String observacaoPaciente;
-    private Date DataConsulta;
+    private Date dataConsulta;
     private String modalidade;
     @JsonIgnore
     @ManyToOne
@@ -46,7 +46,7 @@ public class ConsultaModel {
         this.id = id;
         this.unidade = unidade;
         this.observacaoPaciente = observacaoPaciente;
-        DataConsulta = dataConsulta;
+        this.dataConsulta = dataConsulta;
         this.modalidade = modalidade;
         this.paciente = pacienteModel;
         this.medico = medicoModel;
@@ -57,7 +57,7 @@ public class ConsultaModel {
         this.modalidade = dto.getModalidade();
         this.unidade = dto.getUnidade();
         this.medico = dto.getMedicoId();
-        this.DataConsulta = dto.getDataConsulta();
+        this.dataConsulta = dto.getDataConsulta();
         this.paciente = dto.getPacienteId();
         this.observacaoPaciente = dto.getObservacoes();
     }
@@ -75,7 +75,7 @@ public class ConsultaModel {
     }
 
     public Date getDataConsulta() {
-        return DataConsulta;
+        return dataConsulta;
     }
 
     public String getModalidade() {
@@ -103,7 +103,7 @@ public class ConsultaModel {
     }
 
     public void setDataConsulta(Date dataConsulta) {
-        DataConsulta = dataConsulta;
+        dataConsulta = dataConsulta;
     }
 
     public void setModalidade(String modalidade) {
