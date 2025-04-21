@@ -168,4 +168,17 @@ public class ConsultaService {
         DetalheConsultaPacienteResponseDTO detalheConsulta = new DetalheConsultaPacienteResponseDTO(consultaModel);
         return new ResponseEntity<>(detalheConsulta, HttpStatus.OK);
     }
+
+    public ResponseEntity<?> cancelarConsulta(Long consultaId) {
+        if (consultaId == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponseDTO("Forneça o id da consulta!"));
+        }
+        ConsultaModel consultaModel = consultaRepository.findById(consultaId).orElse(null);
+        if (consultaModel == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponseDTO("Consulta não encontrada no sistema!"));
+        }
+        consultaModel.getStatusConsulta().setDescricao("Cancelada");
+        consultaRepository.save(consultaModel);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

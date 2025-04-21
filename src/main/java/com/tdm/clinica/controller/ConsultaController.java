@@ -20,6 +20,11 @@ public class ConsultaController {
         return consultaService.agendarConsulta(dto);
     }
 
+    @PatchMapping("/cancelar")
+    public ResponseEntity<?> cancelarConsulta(@RequestParam("consultaId") Long consultaId) {
+        return consultaService.cancelarConsulta(consultaId);
+    }
+
     @GetMapping("/historico/paciente")
     public ResponseEntity<?> listarHistoricoConsultasPaciente(
             @RequestParam("pacienteId") Long pacienteId,
