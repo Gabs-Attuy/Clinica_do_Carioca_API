@@ -3,16 +3,26 @@ package com.tdm.clinica.dto.response;
 import com.tdm.clinica.model.ConsultaModel;
 
 public class HistoricoMedicoResponseDTO {
+    private Long id;
     private String paciente;
     private String modalidade;
     private String dataConsulta;
     private String status;
 
     public HistoricoMedicoResponseDTO(ConsultaModel consulta) {
+        this.id = consulta.getId();
         this.paciente = consulta.getPaciente().getNome();
         this.modalidade = consulta.getModalidade();
         this.dataConsulta = consulta.getDataConsulta().toString();
         this.status = consulta.getStatusConsulta().getDescricao();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getPaciente() {
