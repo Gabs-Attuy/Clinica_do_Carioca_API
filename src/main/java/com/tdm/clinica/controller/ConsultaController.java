@@ -64,4 +64,10 @@ public class ConsultaController {
             @RequestParam("consultaId") Long consultaId) {
         return consultaService.detalheConsulta(consultaId);
     }
+
+    @PostMapping("/add/observacao")
+    public ResponseEntity<?> observacoesMedico(@RequestParam ("consultaId") Long consultaId,
+                                               @RequestBody String obs) {
+        return consultaService.observacoesMedico(consultaId, obs);
+    }
 }

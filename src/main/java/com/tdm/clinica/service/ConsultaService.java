@@ -22,6 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.List;
@@ -180,5 +181,20 @@ public class ConsultaService {
         consultaModel.getStatusConsulta().setDescricao("Cancelada");
         consultaRepository.save(consultaModel);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> observacoesMedico(Long consultaId, String obs) {
+        ConsultaModel consulta = consultaRepository.findById(consultaId).orElse(null);
+
+        StatusConsultaModel statusConsulta = consulta.getStatusConsulta();
+        if (statusConsulta == null) {
+            throw new RuntimeException("Status da consulta não encontrado!");
+        }
+
+        statusConsulta.setObservacaoMedico(obs.replace("\"", ""));
+        statusConsultaRepository.save(statusConsulta);
+
+        return ResponseEntity.ok("Observação adicionada com sucesso!\n" + obs);
+
     }
 }
