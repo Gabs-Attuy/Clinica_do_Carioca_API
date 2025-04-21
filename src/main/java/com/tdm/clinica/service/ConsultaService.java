@@ -3,7 +3,9 @@ package com.tdm.clinica.service;
 import com.tdm.clinica.dto.ConsultaDTO;
 import com.tdm.clinica.dto.ConsultaResponseDTO;
 import com.tdm.clinica.dto.ErrorResponseDTO;
-import com.tdm.clinica.dto.HistoricoPacienteResponseDTO;
+import com.tdm.clinica.dto.response.DetalheConsultaPacienteResponseDTO;
+import com.tdm.clinica.dto.response.HistoricoMedicoResponseDTO;
+import com.tdm.clinica.dto.response.HistoricoPacienteResponseDTO;
 import com.tdm.clinica.model.ConsultaModel;
 import com.tdm.clinica.model.MedicoModel;
 import com.tdm.clinica.model.PacienteModel;
@@ -53,9 +55,9 @@ public class ConsultaService {
         statusConsultaRepository.save(statusConsulta);
 
         ConsultaModel novaConsulta = new ConsultaModel(dto);
-        novaConsulta.setStatusConsultaModel(statusConsulta);
-        novaConsulta.setMedicoModel(medico);
-        novaConsulta.setPacienteModel(paciente);
+        novaConsulta.setStatusConsulta(statusConsulta);
+        novaConsulta.setMedico(medico);
+        novaConsulta.setPaciente(paciente);
         consultaRepository.save(novaConsulta);
 
         ConsultaResponseDTO response = new ConsultaResponseDTO(dto);
@@ -86,5 +88,84 @@ public class ConsultaService {
         response.put("totalPages", consultaPage.getTotalPages());
 
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> listarMedicoPorNome(String nomeMedico, Long pacienteId, int page, int size) {
+        if (nomeMedico == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponseDTO("Forneça o nome do médico!"));
+        }
+        if (pacienteId == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponseDTO("Forneça o id do paciente!"));
+        }
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "dataConsulta"));
+        Page<ConsultaModel> consultaPage = consultaRepository.findAllByNomeMedicoAndPacienteId(nomeMedico, pacienteId, pageable);
+        if (consultaPage.getContent().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponseDTO("Não foram encontradas consultas para essa pesquisa!"));
+        }
+        List<HistoricoPacienteResponseDTO> consultas = consultaPage.stream()
+                .map(HistoricoPacienteResponseDTO::new)
+                .collect(Collectors.toList());
+        Map<String, Object> response = new HashMap<>();
+        response.put("consultas", consultas);
+        response.put("totalPages", consultaPage.getTotalPages());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> listarHistoricoConsultasMedico(Long medicoId, int page, int size) {
+        if (medicoId == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponseDTO("Forneça o id do médico!"));
+        }
+        MedicoModel medicoModel = medicoRepository.findById(medicoId).orElse(null);
+        if (medicoModel == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponseDTO("Médico não encontrado no sistema!"));
+        }
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "dataConsulta"));
+        Page<ConsultaModel> consultaPage = consultaRepository.findAllByMedico(pageable, medicoModel);
+        if (consultaPage.getContent().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponseDTO("Não foram encontradas consultas para esse médico!"));
+        }
+        List<HistoricoMedicoResponseDTO> consultas = consultaPage.stream()
+                .map(HistoricoMedicoResponseDTO::new)
+                .collect(Collectors.toList());
+        Map<String, Object> response = new HashMap<>();
+        response.put("consultas", consultas);
+        response.put("totalPages", consultaPage.getTotalPages());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> listarPacientePorNome(String nomePaciente, Long medicoId, int page, int size) {
+        if (nomePaciente == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponseDTO("Forneça o nome do paciente!"));
+        }
+        if (medicoId == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponseDTO("Forneça o id do médico!"));
+        }
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "dataConsulta"));
+        Page<ConsultaModel> consultaPage = consultaRepository.findAllByNomePacienteAndMedicoId(nomePaciente, medicoId, pageable);
+        if (consultaPage.getContent().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponseDTO("Não foram encontradas consultas para essa pesquisa!"));
+        }
+        List<HistoricoMedicoResponseDTO> consultas = consultaPage.stream()
+                .map(HistoricoMedicoResponseDTO::new)
+                .collect(Collectors.toList());
+        Map<String, Object> response = new HashMap<>();
+        response.put("consultas", consultas);
+        response.put("totalPages", consultaPage.getTotalPages());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> detalheConsulta(Long consultaId) {
+        if (consultaId == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponseDTO("Forneça o id da consulta!"));
+        }
+        ConsultaModel consultaModel = consultaRepository.findById(consultaId).orElse(null);
+        if (consultaModel == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponseDTO("Consulta não encontrada no sistema!"));
+        }
+        DetalheConsultaPacienteResponseDTO detalheConsulta = new DetalheConsultaPacienteResponseDTO(consultaModel);
+        return new ResponseEntity<>(detalheConsulta, HttpStatus.OK);
     }
 }

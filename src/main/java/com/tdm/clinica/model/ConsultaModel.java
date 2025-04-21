@@ -82,15 +82,15 @@ public class ConsultaModel {
         return modalidade;
     }
 
-    public PacienteModel getPacienteModel() {
+    public PacienteModel getPaciente() {
         return paciente;
     }
 
-    public MedicoModel getMedicoModel() {
+    public MedicoModel getMedico() {
         return medico;
     }
 
-    public StatusConsultaModel getStatusConsultaModel() {
+    public StatusConsultaModel getStatusConsulta() {
         return statusConsulta;
     }
 
@@ -110,15 +110,15 @@ public class ConsultaModel {
         this.modalidade = modalidade;
     }
 
-    public void setPacienteModel(PacienteModel pacienteModel) {
+    public void setPaciente(PacienteModel pacienteModel) {
         this.paciente = pacienteModel;
     }
 
-    public void setMedicoModel(MedicoModel medicoModel) {
+    public void setMedico(MedicoModel medicoModel) {
         this.medico = medicoModel;
     }
 
-    public void setStatusConsultaModel(StatusConsultaModel statusConsultaModel) {
+    public void setStatusConsulta(StatusConsultaModel statusConsultaModel) {
         this.statusConsulta = statusConsultaModel;
     }
 }

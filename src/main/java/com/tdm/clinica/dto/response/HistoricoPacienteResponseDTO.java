@@ -1,4 +1,4 @@
-package com.tdm.clinica.dto;
+package com.tdm.clinica.dto.response;
 
 import com.tdm.clinica.model.ConsultaModel;
 
@@ -9,10 +9,10 @@ public class HistoricoPacienteResponseDTO {
     private String status;
 
     public HistoricoPacienteResponseDTO(ConsultaModel consulta) {
-        this.medico = consulta.getMedicoModel().getNome();
-        this.especialidade = consulta.getMedicoModel().getEspecialidade();
+        this.medico = consulta.getMedico().getNome();
+        this.especialidade = consulta.getMedico().getEspecialidade();
         this.dataConsulta = consulta.getDataConsulta().toString();
-        this.status = consulta.getStatusConsultaModel().getDescricao();
+        this.status = consulta.getStatusConsulta().getDescricao();
     }
 
     public String getMedico() {

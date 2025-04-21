@@ -20,11 +20,43 @@ public class ConsultaController {
         return consultaService.agendarConsulta(dto);
     }
 
-    @GetMapping("/historicoPaciente")
+    @GetMapping("/historico/paciente")
     public ResponseEntity<?> listarHistoricoConsultasPaciente(
             @RequestParam("pacienteId") Long pacienteId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         return consultaService.listarHistoricoConsultasPaciente(pacienteId, page, size);
+    }
+
+    @GetMapping("/historico/paciente/nomeMedico")
+    public ResponseEntity<?> listarMedicoPorNome(
+            @RequestParam("nomeMedico") String nomeMedico,
+            @RequestParam("pacienteId") Long pacienteId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return consultaService.listarMedicoPorNome(nomeMedico, pacienteId, page, size);
+    }
+
+    @GetMapping("/historico/medico")
+    public ResponseEntity<?> listarHistoricoConsultasMedico(
+            @RequestParam("medicoId") Long medicoId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return consultaService.listarHistoricoConsultasMedico(medicoId, page, size);
+    }
+
+    @GetMapping("/historico/medico/nomePaciente")
+    public ResponseEntity<?> listarPacientePorNome(
+            @RequestParam("nomePaciente") String nomePaciente,
+            @RequestParam("medicoId") Long medicoId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return consultaService.listarPacientePorNome(nomePaciente, medicoId, page, size);
+    }
+
+    @GetMapping("/detalhe")
+    public ResponseEntity<?> detalheConsultaPaciente(
+            @RequestParam("consultaId") Long consultaId) {
+        return consultaService.detalheConsulta(consultaId);
     }
 }
