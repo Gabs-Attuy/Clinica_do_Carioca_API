@@ -1,20 +1,14 @@
 package com.tdm.clinica.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Credencial")
+@Table(name = "Credencial", uniqueConstraints = @UniqueConstraint(name = "UK_email", columnNames = "email"))
 public class CredencialModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "email", unique = true)
     private String email;
     private String senha;
     private String perfil;
