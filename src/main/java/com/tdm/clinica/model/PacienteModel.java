@@ -1,29 +1,24 @@
 package com.tdm.clinica.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
 @Entity
-@Table(name = "Paciente")
+@Table(name = "Paciente",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "UK_paciente_cpf", columnNames = "cpf"),
+                @UniqueConstraint(name = "UK_paciente_telefone", columnNames = "telefone")
+        })
 public class PacienteModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    @Column(name = "cpf", unique = true)
     private String cpf;
     private Date DataNascimento;
-    @Column(name = "telefone", unique = true)
     private String telefone;
     @JsonIgnore
     @OneToOne
@@ -52,5 +47,25 @@ public class PacienteModel {
 
     public CredencialModel getCredencialModel() {
         return credencialModel;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        DataNascimento = dataNascimento;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public void setCredencialModel(CredencialModel credencialModel) {
+        this.credencialModel = credencialModel;
     }
 }
