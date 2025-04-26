@@ -21,7 +21,7 @@ public class PacienteModel {
     private Date DataNascimento;
     private String telefone;
     @JsonIgnore
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "credencial_id")
     private CredencialModel credencialModel;
 

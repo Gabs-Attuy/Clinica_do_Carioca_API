@@ -19,7 +19,7 @@ public class MedicoModel {
     private String especialidade;
     private String telefone;
     @JsonIgnore
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "credencial_id")
     private CredencialModel credencialModel;
 
