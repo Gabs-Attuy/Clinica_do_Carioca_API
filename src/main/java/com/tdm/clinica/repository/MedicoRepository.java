@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface MedicoRepository extends JpaRepository<MedicoModel, Long> {
     Optional<MedicoModel> findByCredencialModel(CredencialModel credencial);
+
+    MedicoModel findByEspecialidade(String especialidade);
 }

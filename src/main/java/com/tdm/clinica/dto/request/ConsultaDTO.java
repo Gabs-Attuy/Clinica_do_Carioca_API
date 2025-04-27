@@ -1,4 +1,4 @@
-package com.tdm.clinica.dto;
+package com.tdm.clinica.dto.request;
 
 import com.tdm.clinica.model.MedicoModel;
 import com.tdm.clinica.model.PacienteModel;

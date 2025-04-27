@@ -1,11 +1,8 @@
 package com.tdm.clinica.service;
 
-import com.tdm.clinica.dto.ConsultaDTO;
-import com.tdm.clinica.dto.ConsultaResponseDTO;
+import com.tdm.clinica.dto.request.ConsultaDTO;
+import com.tdm.clinica.dto.response.*;
 import com.tdm.clinica.dto.ErrorResponseDTO;
-import com.tdm.clinica.dto.response.DetalheConsultaPacienteResponseDTO;
-import com.tdm.clinica.dto.response.HistoricoMedicoResponseDTO;
-import com.tdm.clinica.dto.response.HistoricoPacienteResponseDTO;
 import com.tdm.clinica.model.ConsultaModel;
 import com.tdm.clinica.model.MedicoModel;
 import com.tdm.clinica.model.PacienteModel;
@@ -22,8 +19,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.Text;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -195,6 +192,18 @@ public class ConsultaService {
         statusConsultaRepository.save(statusConsulta);
 
         return ResponseEntity.ok("Observação adicionada com sucesso!\n" + obs);
+
+    }
+
+    public ResponseEntity<List<ListagemMedicoResponseDTO>> listarMedicoPorEspecialidade(String especialidade) {
+        MedicoModel medicos = medicoRepository.findByEspecialidade(especialidade);
+        if(medicos == null) {
+            return null;
+        }
+
+        ListagemMedicoResponseDTO listagem = new ListagemMedicoResponseDTO(medicos);
+
+        return ResponseEntity.ok(Collections.singletonList(listagem));
 
     }
 }

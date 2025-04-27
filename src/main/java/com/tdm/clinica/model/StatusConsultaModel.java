@@ -1,6 +1,6 @@
 package com.tdm.clinica.model;
 
-import com.tdm.clinica.dto.ConsultaDTO;
+import com.tdm.clinica.dto.request.ConsultaDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

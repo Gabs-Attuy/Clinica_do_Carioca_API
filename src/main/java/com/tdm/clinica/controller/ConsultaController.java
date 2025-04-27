@@ -1,11 +1,14 @@
 package com.tdm.clinica.controller;
 
-import com.tdm.clinica.dto.ConsultaDTO;
-import com.tdm.clinica.dto.ConsultaResponseDTO;
+import com.tdm.clinica.dto.request.ConsultaDTO;
+import com.tdm.clinica.dto.response.ConsultaResponseDTO;
+import com.tdm.clinica.dto.response.ListagemMedicoResponseDTO;
 import com.tdm.clinica.service.ConsultaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/consulta")
@@ -69,5 +72,11 @@ public class ConsultaController {
     public ResponseEntity<?> observacoesMedico(@RequestParam ("consultaId") Long consultaId,
                                                @RequestBody String obs) {
         return consultaService.observacoesMedico(consultaId, obs);
+    }
+
+    @GetMapping("/medicos")
+    public ResponseEntity<List<ListagemMedicoResponseDTO>> listagemMedicos(@RequestParam ("especialidade")
+                                                                               String especialidade) {
+        return consultaService.listarMedicoPorEspecialidade(especialidade);
     }
 }
