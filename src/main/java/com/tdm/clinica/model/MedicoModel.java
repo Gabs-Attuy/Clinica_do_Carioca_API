@@ -1,6 +1,7 @@
 package com.tdm.clinica.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tdm.clinica.dto.response.ListagemMedicoResponseDTO;
 import jakarta.persistence.*;
 
 @Entity
@@ -22,6 +23,15 @@ public class MedicoModel {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "credencial_id")
     private CredencialModel credencialModel;
+
+    public MedicoModel(){}
+
+    public MedicoModel(ListagemMedicoResponseDTO dto) {
+        this.id = dto.getId();
+        this.nome = dto.getNome();
+        this.crm = dto.getCrm();
+        this.especialidade = dto.getEspecialidade();
+    }
 
     public Long getId() {
         return id;

@@ -1,4 +1,6 @@
-package com.tdm.clinica.dto;
+package com.tdm.clinica.dto.response;
+
+import com.tdm.clinica.dto.request.ConsultaDTO;
 
 import java.util.Date;
 
