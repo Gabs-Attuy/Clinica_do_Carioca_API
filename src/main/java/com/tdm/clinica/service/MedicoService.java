@@ -18,8 +18,6 @@ public class MedicoService {
     private CredencialRepository credencialRepository;
 
     public MedicoResponseDTO getMedicoById(Long id) {
-        CredencialModel credencial = credencialRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Credencial not found"));
         MedicoModel medico = medicoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Medico not found"));
         return new MedicoResponseDTO(
@@ -27,7 +25,7 @@ public class MedicoService {
                 medico.getNome(),
                 medico.getEspecialidade(),
                 medico.getTelefone(),
-                credencial.getEmail(),
+                medico.getCredencialModel().getEmail(),
                 medico.getCrm()
         );
     }

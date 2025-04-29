@@ -18,15 +18,13 @@ public class PacienteService {
     private CredencialRepository credencialRepository;
 
     public PacienteResponseDTO getPacienteById(Long id) {
-        CredencialModel credencial = credencialRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Credencial not found"));
         PacienteModel paciente = pacienteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Paciente not found"));
         return new PacienteResponseDTO(
                 paciente.getId(),
                 paciente.getNome(),
                 paciente.getCpf(),
-                credencial.getEmail(),
+                paciente.getCredencialModel().getEmail(),
                 paciente.getTelefone(),
                 paciente.getDataNascimento()
         );

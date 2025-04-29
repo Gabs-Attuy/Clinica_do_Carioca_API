@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 public record AlteracaoMedicoRequestDTO(
         @NotNull Long id,
         String nome,
+        String crm,
         String especialidade,
         String telefone,
         @Email String email,
