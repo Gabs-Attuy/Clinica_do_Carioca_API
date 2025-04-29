@@ -66,6 +66,7 @@ public class AlteracaoService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado."));
 
         Optional.ofNullable(dto.nome()).ifPresent(medicoModel::setNome);
+        Optional.ofNullable(dto.crm()).ifPresent(medicoModel::setCrm);
         Optional.ofNullable(dto.especialidade()).ifPresent(medicoModel::setEspecialidade);
         Optional.ofNullable(dto.telefone()).ifPresent(medicoModel::setTelefone);
 
