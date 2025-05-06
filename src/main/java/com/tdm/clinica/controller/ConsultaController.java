@@ -70,8 +70,8 @@ public class ConsultaController {
 
     @PostMapping("/add/observacao")
     public ResponseEntity<?> observacoesMedico(@RequestParam ("consultaId") Long consultaId,
-                                               @RequestBody String obs) {
-        return consultaService.observacoesMedico(consultaId, obs);
+                                               @RequestBody String obs, String novoStatus) {
+        return consultaService.observacoesMedico(consultaId, obs, novoStatus);
     }
 
     @GetMapping("/medicos")
