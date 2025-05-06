@@ -197,14 +197,16 @@ public class ConsultaService {
     }
 
     public ResponseEntity<List<ListagemMedicoResponseDTO>> listarMedicoPorEspecialidade(String especialidade) {
-        MedicoModel medicos = medicoRepository.findByEspecialidade(especialidade);
-        if(medicos == null) {
-            return null;
+        List<MedicoModel> medicos = medicoRepository.findByEspecialidade(especialidade);
+        if (medicos.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.emptyList());
         }
 
-        ListagemMedicoResponseDTO listagem = new ListagemMedicoResponseDTO(medicos);
+        List<ListagemMedicoResponseDTO> listagem = medicos.stream()
+                .map(ListagemMedicoResponseDTO::new)
+                .collect(Collectors.toList());
 
-        return ResponseEntity.ok(Collections.singletonList(listagem));
-
+        return ResponseEntity.ok(listagem);
     }
+
 }
