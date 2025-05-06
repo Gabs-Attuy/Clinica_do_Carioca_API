@@ -41,11 +41,11 @@ public class LoginService {
         if (perfil.equals("MEDICO")) {
             MedicoModel medico = medicoRepository.findByCredencialModel(credencial)
                     .orElseThrow(() -> new IllegalStateException("Médico não encontrado."));
-            return new LoginResponseDTO(medico.getId(), medico.getNome(), perfil);
+            return new LoginResponseDTO(medico.getId(), perfil, medico.getNome());
         } else if (perfil.equals("PACIENTE")) {
             PacienteModel paciente = pacienteRepository.findByCredencialModel(credencial)
                     .orElseThrow(() -> new IllegalStateException("Paciente não encontrado."));
-            return new LoginResponseDTO(paciente.getId(), paciente.getNome(), perfil);
+            return new LoginResponseDTO(paciente.getId(), perfil, paciente.getNome());
         }
 
         throw new IllegalStateException("Perfil inválido.");
