@@ -180,7 +180,7 @@ public class ConsultaService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public ResponseEntity<?> observacoesMedico(Long consultaId, String obs) {
+    public ResponseEntity<?> observacoesMedico(Long consultaId, String obs, String novoStatus) {
         ConsultaModel consulta = consultaRepository.findById(consultaId).orElse(null);
 
         StatusConsultaModel statusConsulta = consulta.getStatusConsulta();
@@ -189,6 +189,7 @@ public class ConsultaService {
         }
 
         statusConsulta.setObservacaoMedico(obs.replace("\"", ""));
+        statusConsulta.setDescricao(novoStatus.replace("\"", ""));
         statusConsultaRepository.save(statusConsulta);
 
         return ResponseEntity.ok("Observação adicionada com sucesso!\n" + obs);
